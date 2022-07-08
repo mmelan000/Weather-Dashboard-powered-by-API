@@ -2,8 +2,25 @@ header {
     text-align: center;
 }
 
+h1 {
+background-color: blue;
+color: white;
+}
+
+h2 {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: lightblue;
+    margin: 10px;
+    padding-left: 10px;
+}
+
+aside {
+    border: 1px solid black;
+}
+
 #test {
-    height: 100vh;
+    height: 90vh;
 }
 
 #current-city {
