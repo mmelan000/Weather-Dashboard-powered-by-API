@@ -1,0 +1,19 @@
+header {
+    text-align: center;
+}
+
+#test {
+    height: 100vh;
+}
+
+#current-city {
+    border: 1px solid black;
+}
+
+#fiveday {
+    border: 1px solid black;
+}
+
+#history>button {
+    width: 90%;
+}
