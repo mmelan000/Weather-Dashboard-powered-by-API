@@ -1,10 +1,5 @@
-header {
+h1 {
     text-align: center;
-    background-image: linear-gradient(to top right, black, blue);
-    color: white;
-}
-
-h2 {
     background-image: linear-gradient(to top right, black, blue);
     color: white;
 }
@@ -19,23 +14,44 @@ aside {
     border: 1px solid black;
 }
 
-#fiveday {
+#forecast {
     border: 1px solid black;
 }
 
-#history>button {
-    width: 90%;
-}
-
-h3 {
-    color: white;
-    background-image: linear-gradient(to top right, black, blue);
-    text-align: center;
-}
 
 #fiveday>div{
     border: 1px solid black; 
     background-image: linear-gradient(to bottom, white, lightblue);
-    font-size: 2rem;
+    font-size: 1.25rem;
     color: black;
+    padding-left: 10px;
+    width: 20%;
+    border-radius: 5px;
+}
+
+#current-uv {
+    border-radius: 10px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.extreme {
+background-color: purple;
+}
+
+.very-high {
+background-color: red;
+}
+
+.high {
+background-color: orange;
+}
+
+.moderate {
+background-color: yellow;
+}
+
+.low {
+    background-color: limegreen;
 }
