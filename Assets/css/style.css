@@ -1,27 +1,19 @@
 header {
     text-align: center;
-}
-
-h1 {
-background-color: blue;
-color: white;
+    background-image: linear-gradient(to top right, black, blue);
+    color: white;
 }
 
 h2 {
-    border: 1px solid black;
-    border-radius: 10px;
-    background-color: lightblue;
-    margin: 10px;
-    padding-left: 10px;
+    background-image: linear-gradient(to top right, black, blue);
+    color: white;
 }
 
 aside {
     border: 1px solid black;
 }
 
-#test {
-    height: 90vh;
-}
+
 
 #current-city {
     border: 1px solid black;
@@ -33,4 +25,17 @@ aside {
 
 #history>button {
     width: 90%;
+}
+
+h3 {
+    color: white;
+    background-image: linear-gradient(to top right, black, blue);
+    text-align: center;
+}
+
+#fiveday>div{
+    border: 1px solid black; 
+    background-image: linear-gradient(to bottom, white, lightblue);
+    font-size: 2rem;
+    color: black;
 }

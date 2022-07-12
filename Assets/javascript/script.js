@@ -5,16 +5,31 @@ var currentTemp = document.querySelector('#current-temp')
 var currentWind = document.querySelector('#current-wind')
 var currentHumidity = document.querySelector('#current-humidity')
 var currentUV = document.querySelector('#current-uv')
-var histroy = document.querySelector('#history')
+var fiveDay = document.querySelector('#fiveday')
 var i = 0
-// http://api.openweathermap.org/geo/1.0/direct?q=London&limit=1&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8
-// api.openweathermap.org/data/2.5/forecast?lat=51.5073219&lon=-0.1276474&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8
 
+function generateFiveDay (input) {
+    var createCard = document.createElement('div');
+    var createCardDate = document.createElement('h3');
+    var createCardTemp = document.createElement('p');
+    var createCardWind = document.createElement('p');
+    var createCardHumidity = document.createElement('p');
 
+    // createCard.classList.add('col-md-2')
+    createCardHumidity.textContent = 'Humidity: ' + input.list[i].main.humidity;
+    createCardWind.textContent = 'Wind: ' + input.list[i].wind.speed + ' MPH';
+    createCardTemp.textContent = 'Temp: ' + input.list[i].main.temp + ' F';
+    createCardDate.textContent = input.list[i].dt_txt.slice(0, -8);
 
-
+    createCard.appendChild(createCardDate);
+    createCard.appendChild(createCardTemp);
+    createCard.appendChild(createCardWind);
+    createCard.appendChild(createCardHumidity);
+    fiveDay.appendChild(createCard); 
+}
 
 function renderCurrentDay (input) {
+    localStorage.setItem('Last City', input.city.name);
     currentCity.textContent = input.city.name + ' ' + input.list[i].dt_txt.slice(0, -8);
     currentTemp.textContent = 'Temp: ' + input.list[i].main.temp + ' F"';
     currentWind.textContent = 'Wind: ' + input.list[i].wind.speed + ' MPH';
@@ -32,14 +47,9 @@ function processData(input) {
         if (i === 0) {
         renderCurrentDay (input);
         } else {
-            console.log('Date: ' + input.list[(i * 8) - 1].dt_txt.slice(0, -8));
-            console.log('Temp: ' + input.list[(i * 8) - 1].main.temp);
-            console.log('Wind: ' + input.list[(i * 8) - 1].wind.speed);
-            console.log('Humidity: ' + input.list[(i * 8) - 1].main.humidity);
-            console.log('---');
+        generateFiveDay(input);
         }
     }
-
 }
 
 function getLocationByName(name) {
@@ -88,7 +98,6 @@ function getLocationByZip(zip) {
         })
 }
 
-
 function identifyLocationType(input) {
     console.log(input)
     var checker = Number(input);
@@ -107,5 +116,9 @@ function grabFormData(event) {
     identifyLocationType($(this).siblings('input').val());
 }
 
-btn.on('click', grabFormData);
+function loadLS () {
+    getLocationByName(localStorage.getItem('Last City'));
+}
 
+btn.on('click', grabFormData);
+loadLS();
