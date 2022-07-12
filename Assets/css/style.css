@@ -8,7 +8,13 @@ aside {
     border: 1px solid black;
 }
 
+button {
+    width: 100%;
+}
 
+#clear-history, #form-button {
+    width:49%;
+}
 
 #current-city {
     border: 1px solid black;

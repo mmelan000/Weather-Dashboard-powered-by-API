@@ -1,4 +1,6 @@
-var btn = $('button');
+var btn = $('#form-button');
+var historyBtns = $('.history-btn');
+var clearBtn = $('#clear-history');
 var formContent = '';
 var currentCity = document.querySelector('#city-name');
 var currentTemp = document.querySelector('#current-temp');
@@ -6,6 +8,7 @@ var currentWind = document.querySelector('#current-wind');
 var currentHumidity = document.querySelector('#current-humidity');
 var currentUV = document.querySelector('#current-uv');
 var fiveDay = document.querySelector('#fiveday');
+var historySection = document.querySelector('#history');
 var i = 0;
 var UV = '';
 
@@ -18,11 +21,11 @@ function generateFiveDay(input) {
     var createCardHumidity = document.createElement('p');
     var createCardIMG = document.createElement('img');
 
-    createCardIMG.src = 'http://openweathermap.org/img/w/' + input.list[(i*8)-1].weather[0].icon + '.png';
-    createCardHumidity.textContent = 'Humidity: ' + input.list[(i*8)-1].main.humidity;
-    createCardWind.textContent = 'Wind: ' + input.list[(i*8)-1].wind.speed + ' MPH';
-    createCardTemp.textContent = 'Temp: ' + input.list[(i*8)-1].main.temp + ' F';
-    createCardDate.textContent = input.list[(i*8)-1].dt_txt.slice(0, -8);
+    createCardIMG.src = 'http://openweathermap.org/img/w/' + input.list[(i * 8) - 1].weather[0].icon + '.png';
+    createCardHumidity.textContent = 'Humidity: ' + input.list[(i * 8) - 1].main.humidity;
+    createCardWind.textContent = 'Wind: ' + input.list[(i * 8) - 1].wind.speed + ' MPH';
+    createCardTemp.textContent = 'Temp: ' + input.list[(i * 8) - 1].main.temp + ' F';
+    createCardDate.textContent = input.list[(i * 8) - 1].dt_txt.slice(0, -8);
 
     createCard.appendChild(createCardDate);
     createCard.appendChild(createCardIMG)
@@ -44,6 +47,7 @@ function renderCurrentDay(input) {
             UV = data.current.uvi;
             console.log(UV);
             currentUV.textContent = UV;
+            currentUV.removeAttribute('class');
             if (UV >= 11) {
                 currentUV.classList.add('extreme')
             } else if (UV >= 8) {
@@ -64,12 +68,23 @@ function renderCurrentDay(input) {
     currentHumidity.textContent = input.list[i].main.humidity;
 }
 
+function generateHistoryBtn(input) {
+    var createHistoryBtn = document.createElement('button');
+
+    createHistoryBtn.textContent = input.city.name;
+    createHistoryBtn.classList.add('history-btn');
+    createHistoryBtn.id = input.city.id;
+
+    historySection.appendChild(createHistoryBtn);
+}
 
 function processData(input) {
     console.log(input);
     console.log(input.city.name);
     console.log(input.list);
     fiveDay.innerHTML = '';
+
+    generateHistoryBtn(input);
 
     for (i = 0; i < 6; i++) {
         if (i === 0) {
@@ -114,6 +129,26 @@ function getLocationByName(name) {
     }
 }
 
+function getLocationByCityID() {
+    console.log('this is working')
+    // event.preventDefault();
+    // var buttonID = $(event.target).id;
+    // console.log(buttonID);
+    // fetch('https://api.openweathermap.org/data/2.5/forecast?id' + cityID + ',us&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
+    //         .then(function (response) {
+    //             return response.json();
+    //         })
+    //         .then(function (data) {
+    //             processData(data);
+    //         })
+}
+
+function clearHistoryButtons (event){
+    event.preventDefault();
+    historySection.innerHTML = '';
+    localStorage.clear();
+}
+
 
 function getLocationByZip(zip) {
     console.log(zip);
@@ -149,4 +184,6 @@ function loadLS() {
 }
 
 btn.on('click', grabFormData);
+historyBtns.on('click', getLocationByCityID);
+clearBtn.on('click', clearHistoryButtons);
 loadLS();
