@@ -9,37 +9,37 @@ var fiveDay = document.querySelector('#fiveday');
 var i = 0;
 var UV = '';
 
-function generateFiveDay (input) {
+function generateFiveDay(input) {
 
     var createCard = document.createElement('div');
     var createCardDate = document.createElement('h3');
     var createCardTemp = document.createElement('p');
     var createCardWind = document.createElement('p');
     var createCardHumidity = document.createElement('p');
-    var createCardIMG = document.createElement('img');    
+    var createCardIMG = document.createElement('img');
 
-    createCardIMG.src = 'http://openweathermap.org/img/w/' + input.list[i].weather[0].icon + '.png';
-    createCardHumidity.textContent = 'Humidity: ' + input.list[i].main.humidity;
-    createCardWind.textContent = 'Wind: ' + input.list[i].wind.speed + ' MPH';
-    createCardTemp.textContent = 'Temp: ' + input.list[i].main.temp + ' F';
-    createCardDate.textContent = input.list[i].dt_txt.slice(0, -8);
+    createCardIMG.src = 'http://openweathermap.org/img/w/' + input.list[(i*8)-1].weather[0].icon + '.png';
+    createCardHumidity.textContent = 'Humidity: ' + input.list[(i*8)-1].main.humidity;
+    createCardWind.textContent = 'Wind: ' + input.list[(i*8)-1].wind.speed + ' MPH';
+    createCardTemp.textContent = 'Temp: ' + input.list[(i*8)-1].main.temp + ' F';
+    createCardDate.textContent = input.list[(i*8)-1].dt_txt.slice(0, -8);
 
     createCard.appendChild(createCardDate);
     createCard.appendChild(createCardIMG)
     createCard.appendChild(createCardTemp);
     createCard.appendChild(createCardWind);
     createCard.appendChild(createCardHumidity);
-    fiveDay.appendChild(createCard); 
+    fiveDay.appendChild(createCard);
 }
 
-function renderCurrentDay (input) {
+function renderCurrentDay(input) {
     var lat = input.city.coord.lat;
     var lon = input.city.coord.lon;
     fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,daily,alerts&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8')
-        .then(function(response) {
+        .then(function (response) {
             return response.json();
         })
-        .then(function (data){
+        .then(function (data) {
             console.log(data);
             UV = data.current.uvi;
             console.log(UV);
@@ -73,9 +73,9 @@ function processData(input) {
 
     for (i = 0; i < 6; i++) {
         if (i === 0) {
-        renderCurrentDay (input);
+            renderCurrentDay(input);
         } else {
-        generateFiveDay(input);
+            generateFiveDay(input);
         }
     }
 }
@@ -144,7 +144,7 @@ function grabFormData(event) {
     identifyLocationType($(this).siblings('input').val());
 }
 
-function loadLS () {
+function loadLS() {
     getLocationByName(localStorage.getItem('Last City'));
 }
 
