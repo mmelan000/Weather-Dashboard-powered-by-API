@@ -69,7 +69,7 @@ function renderCurrentDay(input) {
             }
         })
     localStorage.setItem('Last City', input.city.name);
-    currentCity.textContent = input.city.name;
+    currentCity.textContent = input.city.name + ' ' + input.list[iterative].dt_txt.slice(0, -8);
     currentTemp.textContent = input.list[iterative].main.temp + ' F';
     currentWind.textContent = input.list[iterative].wind.speed + ' MPH';
     currentHumidity.textContent = input.list[iterative].main.humidity + '%';
