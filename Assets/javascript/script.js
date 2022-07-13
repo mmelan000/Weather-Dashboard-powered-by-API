@@ -32,7 +32,7 @@ function generateFiveDay(input) {
     var createCardIMG = document.createElement('img');
 
     createCardIMG.src = 'http://openweathermap.org/img/w/' + input.list[(iterative * 8) - 1].weather[0].icon + '.png';
-    createCardHumidity.textContent = 'Humidity: ' + input.list[(iterative * 8) - 1].main.humidity;
+    createCardHumidity.textContent = 'Humidity: ' + input.list[(iterative * 8) - 1].main.humidity + '%';
     createCardWind.textContent = 'Wind: ' + input.list[(iterative * 8) - 1].wind.speed + ' MPH';
     createCardTemp.textContent = 'Temp: ' + input.list[(iterative * 8) - 1].main.temp + ' F';
     createCardDate.textContent = input.list[(iterative * 8) - 1].dt_txt.slice(0, -8);
