@@ -4,6 +4,7 @@ var clearBtn = $('#clear-history');
 var historySection = $('#history');
 var currentCity = document.querySelector('#city-name');
 var currentTemp = document.querySelector('#current-temp');
+var currentIcon = document.querySelector('#current-icon')
 var currentWind = document.querySelector('#current-wind');
 var currentHumidity = document.querySelector('#current-humidity');
 var currentUV = document.querySelector('#current-uv');
@@ -69,6 +70,7 @@ function renderCurrentDay(input) {
             }
         })
     localStorage.setItem('Last City', input.city.name);
+    currentIcon.src = 'http://openweathermap.org/img/w/' + input.list[iterative].weather[0].icon + '.png'
     currentCity.textContent = input.city.name + ' ' + input.list[iterative].dt_txt.slice(0, -8);
     currentTemp.textContent = input.list[iterative].main.temp + ' F';
     currentWind.textContent = input.list[iterative].wind.speed + ' MPH';
