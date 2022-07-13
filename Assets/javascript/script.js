@@ -72,7 +72,7 @@ function renderCurrentDay(input) {
     currentCity.textContent = input.city.name;
     currentTemp.textContent = input.list[iterative].main.temp + ' F';
     currentWind.textContent = input.list[iterative].wind.speed + ' MPH';
-    currentHumidity.textContent = input.list[iterative].main.humidity;
+    currentHumidity.textContent = input.list[iterative].main.humidity + '%';
 }
 // empties 5day, sends data off to currentDay, then starts for loop to render 5day
 function processData(input) {
