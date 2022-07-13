@@ -1,4 +1,5 @@
-h1,h2 {
+h1,
+h2 {
     background-image: linear-gradient(to bottom left, black, blue);
     text-align: center;
     padding: 6px;
@@ -13,7 +14,8 @@ h3 {
     text-align: center;
 }
 
-button,input {
+button,
+input {
     width: 100%;
 }
 
@@ -44,11 +46,13 @@ button {
     background-color: limegreen;
 }
 
-#clear-history,#form-button {
+#clear-history,
+#form-button {
     width: 49%;
 }
 
-#current-city,#forecast {
+#current-city,
+#forecast {
     padding-left: 18px;
 }
 
@@ -68,14 +72,12 @@ button {
     box-shadow: 3px 3px
 }
 
-#history {
-
-}
-
 #search {
     padding: 10px;
 }
-#search>h3,input {
+
+#search>h3,
+input {
     margin-top: 20px;
     margin-bottom: 20px;
 }

@@ -34,9 +34,9 @@ THEN I am again presented with current and future conditions for that city
 
 ## Screenshots
 
-![App Screenshot](./assets/images/wdapp1.jpg)
+![App Screenshot](./Assets/images/wdapp1.jpg)
 
-![App Screenshot](./assets/images/wdapp2.jpg)
+![App Screenshot](./Assets/images/wdapp2.jpg)
 
 ---
 
