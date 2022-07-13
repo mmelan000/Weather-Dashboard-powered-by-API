@@ -98,7 +98,7 @@ function getLocationByCityID(event) {
             processData(data);
         })
 }
-// fetch method for City name only (Global)
+// fetch method for City name
 function getLocationByName(name) {
     var nameBreakdown = name.split(',', 3)
 
@@ -112,14 +112,24 @@ function getLocationByName(name) {
                 processData(data);
             })
     } else if (nameBreakdown.length === 2) {
-        fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + nameBreakdown[0] + ',' + nameBreakdown[1] + ',us&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
+        fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + nameBreakdown[0] + ',' + nameBreakdown[1] + '&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
-                generateHistoryBtn(data);
-                processData(data);
-            })
+                if (data.message === 'city not found') {
+                    fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + nameBreakdown[0] + ',' + nameBreakdown[1] + ',us&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
+                        .then(function (newresponse) {
+                            return newresponse.json();
+                        })
+                        .then(function (newdata) {
+                            generateHistoryBtn(newdata);
+                            processData(newdata);
+                        })
+                } else {
+                    generateHistoryBtn(data);
+                    processData(data);
+                }})
     } else if (nameBreakdown.length === 3) {
         fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + nameBreakdown[0] + ',' + nameBreakdown[1] + ',' + nameBreakdown[2] + '&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
             .then(function (response) {
@@ -176,7 +186,7 @@ function clearHistoryButtons(event) {
 // loads last last city viewed on return to page
 function loadLS() {
     if (localStorage.getItem('Last City') !== null) {
-    getLocationByName(localStorage.getItem('Last City'));
+        getLocationByName(localStorage.getItem('Last City'));
     }
 }
 

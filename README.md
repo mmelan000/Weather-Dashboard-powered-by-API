@@ -38,6 +38,12 @@ THEN I am again presented with current and future conditions for that city
 
 ![App Screenshot](./assets/images/wdapp2.jpg)
 
+Springfield vs. Springfield
+
+![App Screenshot](./assets/images/wdapp3.jpg)
+
+![App Screenshot](./assets/images/wdapp4.jpg)
+
 ---
 
 ## Optimizations
@@ -45,11 +51,13 @@ THEN I am again presented with current and future conditions for that city
 - Supports multiple search types:
     - City Name (Global)
     - City and State (US Only)
+    - City and Country (Global)
     - City, State, and Country (Global)
     - Zip Code (US Only)
 - Mobile friendly.
 - History Tab for cycling easily through past searches.
 - Color coded UV index using intuitive colors to represent severity.
+- Buttons store city ID to allow for callbacks to specific city searched in the event of multiple cities with the same name.
 
 ---
 
