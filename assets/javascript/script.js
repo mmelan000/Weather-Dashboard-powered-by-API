@@ -175,7 +175,9 @@ function clearHistoryButtons(event) {
 }
 // loads last last city viewed on return to page
 function loadLS() {
+    if (localStorage.getItem('Last City') !== null) {
     getLocationByName(localStorage.getItem('Last City'));
+    }
 }
 
 btn.on('click', grabFormData);
