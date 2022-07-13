@@ -1,63 +1,81 @@
-h1 {
+h1,h2 {
+    background-image: linear-gradient(to bottom left, black, blue);
     text-align: center;
-    background-image: linear-gradient(to top right, black, blue);
+    padding: 6px;
     color: white;
 }
 
-aside {
-    border: 1px solid black;
+h2 {
+    border-radius: 10px;
 }
 
-button {
+h3 {
+    text-align: center;
+}
+
+button,input {
     width: 100%;
 }
 
-#clear-history, #form-button {
-    width:49%;
-}
-
-#current-city {
-    border: 1px solid black;
-}
-
-#forecast {
-    border: 1px solid black;
-}
-
-
-#fiveday>div{
-    border: 1px solid black; 
-    background-image: linear-gradient(to bottom, white, lightblue);
-    font-size: 1.25rem;
-    color: black;
-    padding-left: 10px;
-    width: 20%;
-    border-radius: 5px;
-}
-
-#current-uv {
-    border-radius: 10px;
-    color: black;
-    padding-left: 10px;
-    padding-right: 10px;
+button {
+    border: 0px;
+    border-radius: 15px;
+    background-color: #B0E57C;
+    margin-top: 15px;
 }
 
 .extreme {
-background-color: purple;
+    background-color: purple;
 }
 
 .very-high {
-background-color: red;
+    background-color: red;
 }
 
 .high {
-background-color: orange;
+    background-color: orange;
 }
 
 .moderate {
-background-color: yellow;
+    background-color: yellow;
 }
 
 .low {
     background-color: limegreen;
+}
+
+#clear-history,#form-button {
+    width: 49%;
+}
+
+#current-city,#forecast {
+    padding-left: 18px;
+}
+
+#current-uv {
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#fiveday>div {
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 5px;
+    background-image: linear-gradient(to bottom, #FFEC94, #9BD1FA);
+    font-size: 1rem;
+    padding: 5px;
+    margin: 5px;
+    box-shadow: 3px 3px
+}
+
+#history {
+
+}
+
+#search {
+    padding: 10px;
+}
+#search>h3,input {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

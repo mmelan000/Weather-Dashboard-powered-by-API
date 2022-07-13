@@ -1,19 +1,29 @@
+var iterative = 0;
 var btn = $('#form-button');
-var historyBtns = $('.history-btn');
 var clearBtn = $('#clear-history');
-var formContent = '';
+var historySection = $('#history');
 var currentCity = document.querySelector('#city-name');
 var currentTemp = document.querySelector('#current-temp');
 var currentWind = document.querySelector('#current-wind');
 var currentHumidity = document.querySelector('#current-humidity');
 var currentUV = document.querySelector('#current-uv');
 var fiveDay = document.querySelector('#fiveday');
-var historySection = document.querySelector('#history');
-var i = 0;
+var formInput = document.querySelector('#form-input');
+var formContent = '';
 var UV = '';
+// creates a history button with and id that matches the city id
+function generateHistoryBtn(input) {
+    var createHistoryBtn = document.createElement('button');
 
+    createHistoryBtn.textContent = input.city.name;
+    createHistoryBtn.classList.add('history-btn');
+    createHistoryBtn.id = input.city.id;
+
+    historySection.append(createHistoryBtn);
+    formInput.value = '';
+}
+// runs log for 24 hour intervals, pulls out data, generates and appends card to page
 function generateFiveDay(input) {
-
     var createCard = document.createElement('div');
     var createCardDate = document.createElement('h3');
     var createCardTemp = document.createElement('p');
@@ -21,11 +31,11 @@ function generateFiveDay(input) {
     var createCardHumidity = document.createElement('p');
     var createCardIMG = document.createElement('img');
 
-    createCardIMG.src = 'http://openweathermap.org/img/w/' + input.list[(i * 8) - 1].weather[0].icon + '.png';
-    createCardHumidity.textContent = 'Humidity: ' + input.list[(i * 8) - 1].main.humidity;
-    createCardWind.textContent = 'Wind: ' + input.list[(i * 8) - 1].wind.speed + ' MPH';
-    createCardTemp.textContent = 'Temp: ' + input.list[(i * 8) - 1].main.temp + ' F';
-    createCardDate.textContent = input.list[(i * 8) - 1].dt_txt.slice(0, -8);
+    createCardIMG.src = 'http://openweathermap.org/img/w/' + input.list[(iterative * 8) - 1].weather[0].icon + '.png';
+    createCardHumidity.textContent = 'Humidity: ' + input.list[(iterative * 8) - 1].main.humidity;
+    createCardWind.textContent = 'Wind: ' + input.list[(iterative * 8) - 1].wind.speed + ' MPH';
+    createCardTemp.textContent = 'Temp: ' + input.list[(iterative * 8) - 1].main.temp + ' F';
+    createCardDate.textContent = input.list[(iterative * 8) - 1].dt_txt.slice(0, -8);
 
     createCard.appendChild(createCardDate);
     createCard.appendChild(createCardIMG)
@@ -34,7 +44,7 @@ function generateFiveDay(input) {
     createCard.appendChild(createCardHumidity);
     fiveDay.appendChild(createCard);
 }
-
+// pulls out required data, sends to doc, evaluates uv index
 function renderCurrentDay(input) {
     var lat = input.city.coord.lat;
     var lon = input.city.coord.lon;
@@ -43,9 +53,7 @@ function renderCurrentDay(input) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
             UV = data.current.uvi;
-            console.log(UV);
             currentUV.textContent = UV;
             currentUV.removeAttribute('class');
             if (UV >= 11) {
@@ -60,45 +68,39 @@ function renderCurrentDay(input) {
                 currentUV.classList.add('low')
             }
         })
-
     localStorage.setItem('Last City', input.city.name);
-    currentCity.textContent = input.city.name + ' ' + input.list[i].dt_txt.slice(0, -8);
-    currentTemp.textContent = input.list[i].main.temp + ' F';
-    currentWind.textContent = input.list[i].wind.speed + ' MPH';
-    currentHumidity.textContent = input.list[i].main.humidity;
+    currentCity.textContent = input.city.name;
+    currentTemp.textContent = input.list[iterative].main.temp + ' F';
+    currentWind.textContent = input.list[iterative].wind.speed + ' MPH';
+    currentHumidity.textContent = input.list[iterative].main.humidity;
 }
-
-function generateHistoryBtn(input) {
-    var createHistoryBtn = document.createElement('button');
-
-    createHistoryBtn.textContent = input.city.name;
-    createHistoryBtn.classList.add('history-btn');
-    createHistoryBtn.id = input.city.id;
-
-    historySection.appendChild(createHistoryBtn);
-}
-
+// empties 5day, sends data off to currentDay, then starts for loop to render 5day
 function processData(input) {
-    console.log(input);
-    console.log(input.city.name);
-    console.log(input.list);
     fiveDay.innerHTML = '';
-
-    generateHistoryBtn(input);
-
-    for (i = 0; i < 6; i++) {
-        if (i === 0) {
+    for (iterative = 0; iterative < 6; iterative++) {
+        if (iterative === 0) {
             renderCurrentDay(input);
         } else {
             generateFiveDay(input);
         }
     }
 }
+// fetch method for history buttons (Global)
+function getLocationByCityID(event) {
+    event.preventDefault();
+    var cityID = event.target.id;
 
+    fetch('https://api.openweathermap.org/data/2.5/forecast?id=' + cityID + '&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            processData(data);
+        })
+}
+// fetch method for City name only (Global)
 function getLocationByName(name) {
-    console.log(name);
     var nameBreakdown = name.split(',', 3)
-    console.log(nameBreakdown)
 
     if (nameBreakdown.length === 1) {
         fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + nameBreakdown[0] + '&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
@@ -106,6 +108,7 @@ function getLocationByName(name) {
                 return response.json();
             })
             .then(function (data) {
+                generateHistoryBtn(data);
                 processData(data);
             })
     } else if (nameBreakdown.length === 2) {
@@ -114,6 +117,7 @@ function getLocationByName(name) {
                 return response.json();
             })
             .then(function (data) {
+                generateHistoryBtn(data);
                 processData(data);
             })
     } else if (nameBreakdown.length === 3) {
@@ -122,47 +126,32 @@ function getLocationByName(name) {
                 return response.json();
             })
             .then(function (data) {
+                generateHistoryBtn(data);
                 processData(data);
             })
     } else {
         return;
     }
 }
-
-function getLocationByCityID() {
-    console.log('this is working')
-    // event.preventDefault();
-    // var buttonID = $(event.target).id;
-    // console.log(buttonID);
-    // fetch('https://api.openweathermap.org/data/2.5/forecast?id' + cityID + ',us&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
-    //         .then(function (response) {
-    //             return response.json();
-    //         })
-    //         .then(function (data) {
-    //             processData(data);
-    //         })
-}
-
-function clearHistoryButtons (event){
-    event.preventDefault();
-    historySection.innerHTML = '';
-    localStorage.clear();
-}
-
-
+// fetch method for zip (US only)
 function getLocationByZip(zip) {
-    console.log(zip);
     fetch('https://api.openweathermap.org/data/2.5/forecast?zip=' + zip + ',us&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            processData(data);
+            fetch('https://api.openweathermap.org/data/2.5/forecast?lat=' + data.city.coord.lat + '&lon=' + data.city.coord.lon + '&appid=d37f3dc5ec1d208f1cd2ae723d8bebc8&units=imperial')
+                .then(function (newresponse) {
+                    return newresponse.json();
+                })
+                .then(function (newdata) {
+                    generateHistoryBtn(newdata);
+                    processData(newdata);
+                })
         })
 }
-
+// identifies format and seds it to proper fetch method
 function identifyLocationType(input) {
-    console.log(input)
     var checker = Number(input);
 
     if (Number.isInteger(checker) && checker > 0) {
@@ -173,17 +162,23 @@ function identifyLocationType(input) {
         getLocationByName(input);
     }
 }
-
+// takes form data and sends it to be identified
 function grabFormData(event) {
     event.preventDefault();
-    identifyLocationType($(this).siblings('input').val());
+    identifyLocationType(formInput.value);
 }
-
+// clears buttons and localstorage
+function clearHistoryButtons(event) {
+    event.preventDefault();
+    localStorage.clear();
+    historySection.empty();
+}
+// loads last last city viewed on return to page
 function loadLS() {
     getLocationByName(localStorage.getItem('Last City'));
 }
 
 btn.on('click', grabFormData);
-historyBtns.on('click', getLocationByCityID);
+historySection.on('click', getLocationByCityID);
 clearBtn.on('click', clearHistoryButtons);
 loadLS();
