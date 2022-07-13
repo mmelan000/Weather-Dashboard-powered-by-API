@@ -73,11 +73,10 @@ button {
 }
 
 #search {
-    padding: 10px;
+    padding: 5px;
 }
 
-#search>h3,
-input {
-    margin-top: 20px;
-    margin-bottom: 20px;
+#search > p{
+    padding-left: 15%;
+    color: gray;
 }
