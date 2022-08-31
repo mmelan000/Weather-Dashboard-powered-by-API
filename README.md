@@ -1,4 +1,7 @@
 # Weather Dashboard
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)   
+
+## Description  
 
 An application that will utilize the One Call API to display weather information for the searched city.
 
@@ -24,15 +27,17 @@ WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 ```
 
----
+## Table of Contents  
+1. [Description](#description)
+2. [Deployment](#deployment)
+3. [Optimizations](#optimizations)
+4. [Contributing](#contributing)  
+5. [Questions](#questions)  
+6. [License](#license)
 
-## Authors
+## Deployment
 
-- [@Michael Melanson](https://github.com/mmelan000)
-
----
-
-## Screenshots
+[Deployed Website](https://mmelan000.github.io/Weather-Dashboard-powered-by-API/)
 
 ![App Screenshot](./assets/images/wdapp1.jpg)
 
@@ -43,8 +48,6 @@ Springfield vs. Springfield
 ![App Screenshot](./assets/images/wdapp3.jpg)
 
 ![App Screenshot](./assets/images/wdapp4.jpg)
-
----
 
 ## Optimizations
 
@@ -59,10 +62,16 @@ Springfield vs. Springfield
 - Color coded UV index using intuitive colors to represent severity.
 - Buttons store city ID to allow for callbacks to specific city searched in the event of multiple cities with the same name.
 
----
+## Contributing  
 
-## Deployment
+Follow best practices for naming conventions, indentation, quality comments, etc.  
 
-https://mmelan000.github.io/Challenge-06-Server-Side-APIs-Weather-Dashboard/
+## Questions  
 
----
+If you have any questions, please reach out to me either on Github or by Email.
+  - **Github:** [mmelan000](https://github.com/mmelan000)
+  - **Email:** [m.melanson000@gmail.com](mailto:m.melanson000@gmail.com)
+
+## License  
+
+- [MIT](https://opensource.org/licenses/MIT)
